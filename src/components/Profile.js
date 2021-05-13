@@ -1,6 +1,5 @@
 import NavBar from "./NavBar";
-import { useState } from "react";
-import DataCards from "./DataCards";
+import { useState, useEffect } from "react";
 
 const Profile = () => {
   const [loading, setLoading] = useState(true);
@@ -26,23 +25,35 @@ const Profile = () => {
       "https://my-json-server.typicode.com/viswa2811/aspsaarang2022/thelast";
     response = await fetch(url3);
     data = await response.json();
+    console.log(data[0].address.street);
     setDetails(
       data.map((detailsind) => {
         return (
-          <div className="card">
-            <p class="line-style">{detailsind.name}</p>
-            <p class="line-style">{detailsind.username}</p>
-            <p class="line-style">{detailsind.email}</p>
-            <p class="line-style">{detailsind.phone}</p>
-            <p class="line-style">{detailsind.website}</p>
+          <div className="card" key={detailsind.id}>
+            <p className="line-style" style= {{'font-weight':'bold'}} >• {detailsind.name}</p>
+            <p className="line-style">• {detailsind.username}</p>
+            <p className="line-style">• {detailsind.email}</p>
+            <p className="line-style">
+              • {detailsind.address.street},
+              <div className='line-sub-style'>
+                {detailsind.address.suite},{detailsind.address.city},
+                {detailsind.address.zipcode}
+              </div>
+            </p>
+            <p className="line-style">• {detailsind.company.name}
+            <div className='line-sub-style' style= {{'font-size':'11px'}}>
+                {detailsind.company.catchPhrase}
+              </div></p>
+            <p className="line-style" style = {{color:'#1a75ff'}}>• {detailsind.website}</p>
           </div>
         );
       })
     );
-
   };
 
-  getResponse() ;
+  useEffect(() => {
+    getResponse();
+  }, []);
 
   return (
     <div>
@@ -62,3 +73,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
