@@ -30,7 +30,7 @@ const Profile = () => {
       data.map((detailsind) => {
         return (
           <div className="card" key={detailsind.id}>
-            <p className="line-style" style= {{'font-weight':'bold'}} >• {detailsind.name}</p>
+            <p className="line-style" style= {{'font-weight':'bold','text-align':'center'}} >{detailsind.name}</p>
             <p className="line-style">• {detailsind.username}</p>
             <p className="line-style">• {detailsind.email}</p>
             <p className="line-style">
