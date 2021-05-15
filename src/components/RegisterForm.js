@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Validation from "./Validation";
 
-
+//To store the entered Details
 const RegisterForm = () => {
 
   const [values, setValues] = useState({
@@ -12,10 +12,13 @@ const RegisterForm = () => {
     password: "",
     confirmpassword: "",
   });
-
+  
+  // To store the errors returned after validation
   const [errors, setErrors] = useState({});
+  // To represent whether details are valid or not
   const [detailsvalid, setDetailsValid] = useState(false);
-
+  
+  //Assigning entered values to variables
   const makeChanges = (event) => {
     setValues({
       ...values,
@@ -24,11 +27,13 @@ const RegisterForm = () => {
 
 
   };
-
+  
+  // Sending entered details for validation
   const processSubmit = (event) => {
     setErrors(Validation(values));
     setDetailsValid(true);
-
+    
+    // Navigating to next page if details are valid
     if (Object.keys(errors).length === 0 && detailsvalid) {
       document.getElementById("register").click();
     } else {
