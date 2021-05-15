@@ -2,30 +2,36 @@ import NavBar from "./NavBar";
 import { useState, useEffect } from "react";
 
 const Profile = () => {
+  // variables to store fetched data
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState();
   const [webSeries, setWebSeries] = useState();
   const [Details, setDetails] = useState();
-
+  
+  // to fetch data using api requests
   const getResponse = async () => {
+    // Fetching movies
     const url1 =
       "https://my-json-server.typicode.com/viswa2811/aspsaarang2022/welcome";
+    //  await used to wait untill details fetched from api
     var response = await fetch(url1);
     var data = await response.json();
     setMovies(data.name);
-
+    
+    // Fetching webseries
     const url2 =
       "https://my-json-server.typicode.com/viswa2811/aspsaarang2022/saarang";
     response = await fetch(url2);
     data = await response.json();
     setWebSeries(data.name);
     setLoading(false);
-
+    
+    // Fetching data to be displayed on cards
     const url3 =
       "https://my-json-server.typicode.com/viswa2811/aspsaarang2022/thelast";
     response = await fetch(url3);
     data = await response.json();
-    console.log(data[0].address.street);
+    // Returning each card with an preson's data using map function
     setDetails(
       data.map((detailsind) => {
         return (
@@ -50,7 +56,7 @@ const Profile = () => {
       })
     );
   };
-
+  // getResponse function will execute once on loading the page
   useEffect(() => {
     getResponse();
   }, []);
@@ -60,11 +66,11 @@ const Profile = () => {
       <NavBar />
       <div className="container-box">
         <div className="bar-block">
-          {loading ? <div>Movies</div> : <div>{movies}</div>}
+          {loading ? <div>movies loading...</div> : <div>{movies}</div>}
         </div>
 
         <div className="bar-block">
-          {loading ? <div>webSeries</div> : <div>{webSeries}</div>}
+          {loading ? <div>webSeries loading...</div> : <div>{webSeries}</div>}
         </div>
       </div>
       <div className="container-box">{Details}</div>
